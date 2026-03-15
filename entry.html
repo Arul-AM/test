@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Before You Enter 💜</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+height:100dvh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+color:white;
+background:linear-gradient(135deg,#020024,#090979,#4b0082,#7b2cbf);
+}
+
+h1{
+font-size:clamp(26px,6vw,40px);
+}
+
+p{
+font-size:clamp(14px,4vw,20px);
+}
+
+input{
+padding:12px;
+font-size:18px;
+border-radius:10px;
+border:none;
+margin-top:10px;
+text-align:center;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+border:none;
+border-radius:25px;
+margin-top:20px;
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Before you enter 💜</h1>
+
+<p>What nickname do I call you the most?</p>
+
+<input id="answer">
+
+<button onclick="checkAnswer()">Enter</button>
+
+<script>
+
+function checkAnswer(){
+
+const ans=document.getElementById("answer").value.toLowerCase()
+
+if(ans==="kd"||ans==="kaaruvachi"){
+
+window.location.href="index.html"
+
+}else{
+
+alert("Wrong answer 😜")
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

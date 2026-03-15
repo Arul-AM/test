@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday 💜</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+color:white;
+min-height:100vh;
+
+background:linear-gradient(-45deg,#020024,#090979,#4b0082,#7b2cbf,#1e3c72);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+h1{
+font-size:clamp(28px,7vw,48px);
+margin-top:25px;
+text-shadow:0 0 10px #4ea8de,0 0 20px #7b2cbf,0 0 40px #9d4edd;
+}
+
+#nickname{
+font-size:clamp(18px,5vw,26px);
+margin-bottom:10px;
+color:#e6dcff;
+}
+
+/* message */
+
+.message-box{
+width:90%;
+max-width:700px;
+margin:20px auto;
+padding:20px;
+
+background:rgba(15,0,60,0.65);
+border-radius:18px;
+
+border:1px solid rgba(160,120,255,0.4);
+box-shadow:0 0 15px rgba(120,100,255,0.4);
+
+text-align:left;
+line-height:1.6;
+}
+
+/* hearts */
+
+.heart{
+position:fixed;
+font-size:20px;
+animation:float 12s linear infinite;
+opacity:0.8;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* gallery */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+width:90%;
+max-width:900px;
+margin:30px auto;
+}
+
+.gallery img{
+width:100%;
+height:200px;
+object-fit:cover;
+border-radius:10px;
+box-shadow:0 0 10px rgba(150,100,255,0.6);
+transition:transform .3s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
+}
+
+@media(max-width:600px){
+.gallery{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+/* buttons */
+
+button{
+margin:10px;
+padding:12px 24px;
+font-size:16px;
+border:none;
+border-radius:25px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+}
+
+/* cake */
+
+.cake{
+font-size:60px;
+cursor:pointer;
+margin:20px;
+}
+
+/* popup letter */
+
+.letter-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.letter-box{
+background:white;
+color:black;
+padding:30px;
+border-radius:15px;
+max-width:400px;
+line-height:1.6;
+}
+
+/* video popup */
+
+.video-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.video-container{
+position:relative;
+width:90%;
+max-width:700px;
+}
+
+video{
+width:100%;
+border-radius:15px;
+}
+
+/* close button */
+
+.close-video{
+position:absolute;
+top:-35px;
+right:0;
+font-size:30px;
+cursor:pointer;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- floating hearts -->
+
+<div class="heart" style="left:5%">💜</div>
+<div class="heart" style="left:25%;animation-delay:3s">💙</div>
+<div class="heart" style="left:50%;animation-delay:6s">💜</div>
+<div class="heart" style="left:70%;animation-delay:2s">💙</div>
+<div class="heart" style="left:90%;animation-delay:4s">💜</div>
+
+<h1>HAPPY BIRTHDAY SUBHA 💙</h1>
+
+<div id="nickname"></div>
+
+<div class="message-box">
+
+<p>Happy Birthday da en azhagana ponnu 💜</p>
+
+<p>Nee en life ku vandha apram dhan ellame romba azhaga maari pochu.</p>
+
+<p>Nee en happiness, en peace, en favourite person 💙</p>
+
+<p>Unna en life la kidaichadhu enakku romba periya luck.</p>
+
+<p>Naan eppovum unna care pannuvaen 💙</p>
+
+</div>
+
+<button onclick="openLetter()">💌 Open My Letter</button>
+
+<div class="cake" onclick="celebrate()">🎂</div>
+
+<!-- gallery -->
+
+<div class="gallery">
+
+<img src="Memories/01.jpeg">
+<img src="Memories/02.jpeg">
+<img src="Memories/03.jpeg">
+<img src="Memories/04.jpeg">
+
+<img src="Memories/05.jpeg">
+<img src="Memories/06.jpeg">
+<img src="Memories/07.jpeg">
+<img src="Memories/08.jpeg">
+
+<img src="Memories/09.jpeg">
+<img src="Memories/10.jpeg">
+<img src="Memories/11.jpeg">
+<img src="Memories/12.jpeg">
+
+<img src="Memories/13.jpeg">
+<img src="Memories/14.jpeg">
+<img src="Memories/15.jpeg">
+<img src="Memories/16.jpeg">
+
+</div>
+
+<button onclick="window.location.href='memories.html'">
+ Memories 📸
+</button>
+
+<!-- letter popup -->
+
+<div class="letter-popup" id="letterPopup">
+
+<div class="letter-box">
+
+<h2>My Letter For You 💜</h2>
+
+<p>
+
+Dear My Princess,
+
+<br><br>
+
+Unna first time paatha moment la irundhu
+en life romba beautiful ah maari pochu.
+
+<br><br>
+
+Nee sirikkum pothu
+world la ellam correct ah irukura madhiri feel aagudhu.
+
+<br><br>
+
+Happy Birthday to the most special person in my life ❤️
+
+</p>
+
+<button onclick="closeLetter()">Close</button>
+
+</div>
+
+</div>
+
+<!-- VIDEO POPUP -->
+
+<div class="video-popup" id="videoPopup">
+
+<div class="video-container">
+
+<span class="close-video" onclick="closeVideo()">✖</span>
+
+<video id="wishVideo" autoplay controls>
+<source src="wish.mp4" type="video/mp4">
+</video>
+
+</div>
+
+</div>
+
+<script>
+
+/* background music */
+
+const music=document.getElementById("bgMusic")
+music.volume=0.5
+
+document.body.addEventListener("click",()=>{
+music.play().catch(()=>{})
+},{once:true})
+
+/* nickname animation */
+
+const names=[
+"KD Queen 👑",
+"Kaaruvachi💜",
+"Copy Cat ✨",
+"Pap's 🥰",
+"Wifey💙"
+]
+
+let index=0
+
+function showName(){
+document.getElementById("nickname").textContent=names[index]
+index++
+if(index<names.length){
+setTimeout(showName,1800)
+}
+}
+
+showName()
+
+/* letter */
+
+function openLetter(){
+document.getElementById("letterPopup").style.display="flex"
+}
+
+function closeLetter(){
+document.getElementById("letterPopup").style.display="none"
+}
+
+/* confetti */
+
+function celebrate(){
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div")
+heart.innerHTML="💜"
+
+heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
+heart.style.top="-20px"
+heart.style.fontSize="20px"
+heart.style.animation="fall 3s linear"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{heart.remove()},3000)
+
+}
+
+}
+
+/* falling animation */
+
+const style=document.createElement("style")
+
+style.innerHTML=`
+@keyframes fall{
+0%{transform:translateY(0)}
+100%{transform:translateY(100vh)}
+}`
+
+document.head.appendChild(style)
+
+/* CLOSE VIDEO */
+
+function closeVideo(){
+
+const video=document.getElementById("wishVideo")
+
+video.pause()
+video.currentTime=0
+
+document.getElementById("videoPopup").style.display="none"
+
+}
+
+/* auto close when finished */
+
+document.getElementById("wishVideo").addEventListener("ended",function(){
+document.getElementById("videoPopup").style.display="none"
+})
+
+</script>
+
+</body>
+</html>

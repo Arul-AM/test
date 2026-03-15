@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Our Memories 💜</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+text-align:center;
+color:white;
+min-height:100dvh;
+
+background:linear-gradient(-45deg,#020024,#090979,#4b0082,#7b2cbf,#1e3c72);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* top right button */
+
+.personal-btn{
+position:fixed;
+top:15px;
+right:15px;
+padding:10px 18px;
+font-size:14px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+
+box-shadow:0 0 10px rgba(150,100,255,0.6);
+z-index:1000;
+}
+
+.personal-btn:hover{
+transform:scale(1.05);
+}
+
+h1{
+margin-top:25px;
+font-size:clamp(28px,7vw,48px);
+text-shadow:0 0 10px #9d4edd;
+}
+
+h2{
+margin-top:30px;
+font-size:clamp(20px,6vw,30px);
+}
+
+/* gallery */
+
+.gallery{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+padding:20px;
+}
+
+/* photo card */
+
+.photo-card{
+background:white;
+padding:8px;
+border-radius:10px;
+width:clamp(120px,40vw,200px);
+
+box-shadow:0 6px 15px rgba(0,0,0,0.35);
+
+transform:rotate(-3deg);
+transition:transform .25s ease;
+}
+
+.photo-card:nth-child(even){
+transform:rotate(3deg);
+}
+
+.photo-card:hover{
+transform:scale(1.05) rotate(0deg);
+}
+
+.photo-card img{
+width:100%;
+border-radius:5px;
+display:block;
+}
+
+.caption{
+color:black;
+margin-top:6px;
+font-size:13px;
+}
+
+/* video */
+
+.video-section{
+margin-top:25px;
+}
+
+video{
+width:90%;
+max-width:600px;
+border-radius:15px;
+box-shadow:0 0 15px #9d4edd;
+}
+
+/* button */
+
+button{
+margin:35px;
+padding:12px 26px;
+font-size:16px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+
+box-shadow:0 0 12px rgba(150,100,255,0.6);
+}
+
+audio{
+display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Personal Gallery Button -->
+
+<button class="personal-btn" onclick="openPersonal()">
+Personal Gallery
+</button>
+
+<h1>Our Memories 💜</h1>
+
+<!-- FIRST GALLERY -->
+
+<div class="gallery">
+
+<div class="photo-card">
+<img src="Memories/1.jpeg" loading="lazy">
+<div class="caption">First time we met ❤️</div>
+</div>
+
+<div class="photo-card">
+<img src="Memories/2.jpeg" loading="lazy">
+<div class="caption">Your smile means everything 💜</div>
+</div>
+
+<div class="photo-card">
+<img src="Memories/3.jpeg" loading="lazy">
+<div class="caption">Best moment together ✨</div>
+</div>
+
+<div class="photo-card">
+<img src="Memories/4.jpeg" loading="lazy">
+<div class="caption">Always my favourite person 🥰</div>
+</div>
+
+</div>
+
+<!-- VIDEO SECTION -->
+
+<div class="video-section">
+
+<h2>Special Memory 🎥</h2>
+
+<video id="memoryVideo" controls preload="metadata">
+<source src="wish.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<!-- SPECIAL GALLERY -->
+
+<h2>Special Moments 💕</h2>
+
+<div class="gallery">
+
+<div class="photo-card"><img src="surprise/01.jpg" loading="lazy"><div class="caption">Memory 01</div></div>
+<div class="photo-card"><img src="surprise/02.jpeg" loading="lazy"><div class="caption">Memory 02</div></div>
+<div class="photo-card"><img src="surprise/03.jpeg" loading="lazy"><div class="caption">Memory 03</div></div>
+<div class="photo-card"><img src="surprise/04.jpeg" loading="lazy"><div class="caption">Memory 04</div></div>
+
+<div class="photo-card"><img src="surprise/05.jpeg" loading="lazy"><div class="caption">Memory 05</div></div>
+<div class="photo-card"><img src="surprise/06.jpeg" loading="lazy"><div class="caption">Memory 06</div></div>
+<div class="photo-card"><img src="surprise/07.jpeg" loading="lazy"><div class="caption">Memory 07</div></div>
+<div class="photo-card"><img src="surprise/08.jpg" loading="lazy"><div class="caption">Memory 08</div></div>
+
+<div class="photo-card"><img src="surprise/09.jpeg" loading="lazy"><div class="caption">Memory 09</div></div>
+<div class="photo-card"><img src="surprise/10.jpeg" loading="lazy"><div class="caption">Memory 10</div></div>
+<div class="photo-card"><img src="surprise/11.jpeg" loading="lazy"><div class="caption">Memory 11</div></div>
+<div class="photo-card"><img src="surprise/12.jpeg" loading="lazy"><div class="caption">Memory 12</div></div>
+
+<div class="photo-card"><img src="surprise/13.jpeg" loading="lazy"><div class="caption">Memory 13</div></div>
+<div class="photo-card"><img src="surprise/14.jpeg" loading="lazy"><div class="caption">Memory 14</div></div>
+<div class="photo-card"><img src="surprise/15.jpeg" loading="lazy"><div class="caption">Memory 15</div></div>
+<div class="photo-card"><img src="surprise/16.jpeg" loading="lazy"><div class="caption">Memory 16</div></div>
+
+</div>
+
+<button onclick="window.location.href='final.html'">
+Next ❤️
+</button>
+
+<audio id="bgMusic" loop>
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const music=document.getElementById("bgMusic")
+const video=document.getElementById("memoryVideo")
+
+music.volume=0.5
+
+/* mobile safe start */
+
+document.body.addEventListener("click",()=>{
+music.play().catch(()=>{})
+},{once:true})
+
+/* pause music when video plays */
+
+video.addEventListener("play",()=>{
+music.pause()
+})
+
+/* resume music when video pauses */
+
+video.addEventListener("pause",()=>{
+music.play().catch(()=>{})
+})
+
+/* resume music when video ends */
+
+video.addEventListener("ended",()=>{
+music.play().catch(()=>{})
+})
+
+function openPersonal(){
+window.location.href="personal.html"
+}
+
+</script>
+
+</body>
+</html>

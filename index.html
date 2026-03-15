@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Surprise For You 💜</title>
+
+<style>
+
+/* ===== PAGE STYLE ===== */
+
+body{
+margin:0;
+padding:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+color:white;
+text-align:center;
+overflow:hidden;
+
+background:linear-gradient(135deg,#020024,#090979,#4b0082,#7b2cbf);
+}
+
+/* container */
+
+.container{
+padding:40px;
+border-radius:20px;
+background:rgba(10,0,40,0.6);
+backdrop-filter:blur(10px);
+
+box-shadow:0 0 40px rgba(120,100,255,0.7);
+
+animation:fadeIn 3s ease;
+}
+
+/* title */
+
+.title{
+font-size:42px;
+margin-bottom:10px;
+
+text-shadow:
+0 0 10px #4ea8de,
+0 0 20px #7b2cbf,
+0 0 40px #9d4edd;
+}
+
+/* subtitle */
+
+.subtitle{
+font-size:18px;
+margin-bottom:30px;
+color:#d6ccff;
+}
+
+/* countdown */
+
+#countdown{
+font-size:55px;
+font-weight:bold;
+letter-spacing:6px;
+
+text-shadow:
+0 0 10px #4ea8de,
+0 0 20px #7b2cbf,
+0 0 40px #9d4edd;
+}
+
+/* note */
+
+.note{
+margin-top:20px;
+font-size:15px;
+color:#d6ccff;
+}
+
+/* floating hearts */
+
+.heart{
+position:absolute;
+font-size:24px;
+animation:float 12s linear infinite;
+opacity:0.8;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+50%{
+opacity:1;
+}
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+}
+
+/* fade animation */
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+   <audio autoplay loop>
+<source src="audio.mp3" type="audio/mpeg">
+</audio>
+<!-- Floating hearts -->
+
+<div class="heart" style="left:5%;animation-delay:0s;">💜</div>
+<div class="heart" style="left:15%;animation-delay:2s;">💙</div>
+<div class="heart" style="left:25%;animation-delay:4s;">💜</div>
+<div class="heart" style="left:35%;animation-delay:1s;">💙</div>
+<div class="heart" style="left:45%;animation-delay:3s;">💜</div>
+<div class="heart" style="left:55%;animation-delay:5s;">💙</div>
+<div class="heart" style="left:65%;animation-delay:2s;">💜</div>
+<div class="heart" style="left:75%;animation-delay:4s;">💙</div>
+<div class="heart" style="left:85%;animation-delay:1s;">💜</div>
+<div class="heart" style="left:95%;animation-delay:3s;">💙</div>
+
+
+<!-- Main content -->
+
+<div class="container">
+
+<h1 class="title">A Special Surprise Is Waiting For You 💜</h1>
+
+<p class="subtitle">Something magical will happen at midnight...</p>
+
+<div id="countdown">
+<span id="days">00</span>d :
+<span id="hours">00</span>h :
+<span id="minutes">00</span>m :
+<span id="seconds">00</span>s
+</div>
+
+<p class="note">Stay here until the timer ends ✨</p>
+
+</div>
+
+
+<script>
+
+/* countdown timer */
+
+const targetDate = new Date("March 21, 2026 00:00:00").getTime();
+
+const timer = setInterval(function(){
+
+const now = new Date().getTime();
+const distance = targetDate - now;
+
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+document.getElementById("days").innerHTML = String(days).padStart(2,"0");
+document.getElementById("hours").innerHTML = String(hours).padStart(2,"0");
+document.getElementById("minutes").innerHTML = String(minutes).padStart(2,"0");
+document.getElementById("seconds").innerHTML = String(seconds).padStart(2,"0");
+
+if(distance < 0){
+
+clearInterval(timer);
+
+document.getElementById("countdown").innerHTML="🎉 It's Time!";
+
+setTimeout(function(){
+window.location.href="surprise.html";
+},2000);
+
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>

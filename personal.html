@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Private Access 💜</title>
+
+<style>
+
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+color:white;
+text-align:center;
+height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:linear-gradient(-45deg,#020024,#090979,#4b0082,#7b2cbf,#1e3c72);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.box{
+background:rgba(15,0,60,0.7);
+padding:35px;
+border-radius:18px;
+box-shadow:0 0 20px rgba(120,100,255,0.6);
+}
+
+input{
+padding:12px;
+border:none;
+border-radius:10px;
+margin-top:15px;
+font-size:16px;
+text-align:center;
+}
+
+button{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:20px;
+font-size:16px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+}
+
+#error{
+color:#ffaaaa;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Private Gallery 🔒</h2>
+
+<p>Only you can open this...</p>
+
+<input type="password" id="nickname" placeholder="Enter your nickname">
+
+<br>
+
+<button onclick="verify()">Open</button>
+
+<p id="error"></p>
+
+</div>
+
+<script>
+
+function verify(){
+
+const name=document.getElementById("nickname").value.toLowerCase()
+
+const allowed=[
+"kd",
+"kaaruvachi",
+"copy cat",
+"pap's",
+"wifey"
+]
+
+if(allowed.includes(name)){
+
+window.location.href="personal-gallery.html"
+
+}
+else{
+
+document.getElementById("error").innerText="Wrong nickname 💔"
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
