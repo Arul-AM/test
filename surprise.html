@@ -10,21 +10,27 @@
 
 <style>
 
-*{box-sizing:border-box}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
-margin:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+
 font-family:'Segoe UI',sans-serif;
 text-align:center;
 color:white;
-min-height:100vh;
 
-background:linear-gradient(-45deg,#020024,#090979,#4b0082,#7b2cbf,#1e3c72);
+background:linear-gradient(-45deg,#020024,#090979,#4b0082,#7b2cbf);
 background-size:400% 400%;
 animation:gradientMove 12s ease infinite;
-
-user-select:none;
--webkit-user-select:none;
 }
 
 @keyframes gradientMove{
@@ -33,43 +39,52 @@ user-select:none;
 100%{background-position:0% 50%}
 }
 
+/* title */
+
 h1{
-font-size:clamp(28px,7vw,48px);
-margin-top:25px;
-text-shadow:0 0 10px #4ea8de,0 0 20px #7b2cbf,0 0 40px #9d4edd;
+font-size:clamp(30px,7vw,48px);
+margin-bottom:10px;
+text-shadow:0 0 10px #4ea8de,0 0 20px #7b2cbf;
 }
 
+/* nickname */
+
 #nickname{
-font-size:clamp(18px,5vw,26px);
-margin-bottom:10px;
+font-size:clamp(20px,5vw,28px);
+margin-bottom:20px;
 color:#e6dcff;
 }
 
 /* message */
 
-.message-box{
-width:90%;
-max-width:700px;
-margin:20px auto;
-padding:20px;
-
-background:rgba(15,0,60,0.65);
-border-radius:18px;
-
-border:1px solid rgba(160,120,255,0.4);
-box-shadow:0 0 15px rgba(120,100,255,0.4);
-
-text-align:left;
+.message{
+max-width:90%;
 line-height:1.6;
+font-size:clamp(16px,4vw,18px);
+margin-bottom:20px;
+}
+
+/* button */
+
+button{
+padding:14px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+
+box-shadow:0 0 15px rgba(150,100,255,0.6);
 }
 
 /* hearts */
 
 .heart{
 position:fixed;
-font-size:20px;
+font-size:22px;
 animation:float 12s linear infinite;
-opacity:0.8;
 }
 
 @keyframes float{
@@ -78,102 +93,21 @@ opacity:0.8;
 100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* gallery */
+/* stars */
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:15px;
-width:90%;
-max-width:900px;
-margin:30px auto;
-}
-
-.photo-box{
-position:relative;
-overflow:hidden;
-border-radius:10px;
-}
-
-/* protected images */
-
-.photo-box img{
-width:100%;
-height:200px;
-object-fit:cover;
-border-radius:10px;
-
-pointer-events:none;
-user-select:none;
--webkit-user-drag:none;
--webkit-touch-callout:none;
-
-box-shadow:0 0 10px rgba(150,100,255,0.6);
-}
-
-/* invisible overlay */
-
-.photo-box::after{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-}
-
-/* mobile */
-
-@media(max-width:600px){
-.gallery{
-grid-template-columns:repeat(2,1fr);
-}
-}
-
-/* buttons */
-
-button{
-margin:10px;
-padding:12px 24px;
-font-size:16px;
-border:none;
-border-radius:25px;
-cursor:pointer;
-
-background:linear-gradient(45deg,#4ea8de,#9d4edd);
-color:white;
-}
-
-/* cake */
-
-.cake{
-font-size:60px;
-cursor:pointer;
-margin:20px;
-}
-
-/* popup letter */
-
-.letter-popup{
+.star{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-
-display:none;
-justify-content:center;
-align-items:center;
+top:-10px;
+width:2px;
+height:80px;
+background:linear-gradient(white,transparent);
+transform:rotate(45deg);
+animation:fallStar linear forwards;
 }
 
-.letter-box{
-background:white;
-color:black;
-padding:30px;
-border-radius:15px;
-max-width:400px;
-line-height:1.6;
+@keyframes fallStar{
+0%{transform:translateY(-100px) translateX(0) rotate(45deg);}
+100%{transform:translateY(110vh) translateX(-200px) rotate(45deg);}
 }
 
 /* video popup */
@@ -184,11 +118,13 @@ top:0;
 left:0;
 width:100%;
 height:100%;
+
 background:rgba(0,0,0,0.9);
 
 display:flex;
 justify-content:center;
 align-items:center;
+
 z-index:999;
 }
 
@@ -203,20 +139,19 @@ width:100%;
 border-radius:15px;
 }
 
-.close-video{
+.close-btn{
 position:absolute;
 top:-35px;
 right:0;
 font-size:30px;
 cursor:pointer;
-color:white;
 }
 
 </style>
 
 </head>
 
-<body oncontextmenu="return false">
+<body>
 
 <audio id="bgMusic" loop>
 <source src="love.mp3" type="audio/mpeg">
@@ -224,88 +159,31 @@ color:white;
 
 <!-- floating hearts -->
 
-<div class="heart" style="left:5%">💜</div>
-<div class="heart" style="left:25%;animation-delay:3s">💙</div>
-<div class="heart" style="left:50%;animation-delay:6s">💜</div>
-<div class="heart" style="left:70%;animation-delay:2s">💙</div>
-<div class="heart" style="left:90%;animation-delay:4s">💜</div>
+<div class="heart" style="left:10%">💜</div>
+<div class="heart" style="left:40%;animation-delay:3s">💙</div>
+<div class="heart" style="left:70%;animation-delay:5s">💜</div>
 
-<h1>HAPPY BIRTHDAY SUBHA 💙</h1>
+<h1>Happy Birthday ❤️</h1>
 
 <div id="nickname"></div>
 
-<div class="message-box">
+<div class="message">
 
-<p>Happy Birthday da en azhagana ponnu 💜</p>
+Happy Birthday da en azhagana ponnu 💜
 
-<p>Nee en life ku vandha apram dhan ellame romba azhaga maari pochu.</p>
+<br><br>
 
-<p>Nee en happiness, en peace, en favourite person 💙</p>
+Nee en life ku vandha apram dhan ellame romba azhaga maari pochu.
 
-<p>Unna en life la kidaichadhu enakku romba periya luck.</p>
+<br><br>
 
-<p>Naan eppovum unna care pannuvaen 💙</p>
-
-</div>
-
-<button onclick="openLetter()">💌 Open My Letter</button>
-
-<div class="cake" onclick="celebrate()">🎂</div>
-
-<!-- gallery -->
-
-<div class="gallery">
-
-<div class="photo-box"><img src="Memories/01.jpeg"></div>
-<div class="photo-box"><img src="Memories/02.jpeg"></div>
-<div class="photo-box"><img src="Memories/03.jpeg"></div>
-<div class="photo-box"><img src="Memories/04.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/05.jpeg"></div>
-<div class="photo-box"><img src="Memories/06.jpeg"></div>
-<div class="photo-box"><img src="Memories/07.jpeg"></div>
-<div class="photo-box"><img src="Memories/08.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/09.jpeg"></div>
-<div class="photo-box"><img src="Memories/10.jpeg"></div>
-<div class="photo-box"><img src="Memories/11.jpeg"></div>
-<div class="photo-box"><img src="Memories/12.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/13.jpeg"></div>
-<div class="photo-box"><img src="Memories/14.jpeg"></div>
-<div class="photo-box"><img src="Memories/15.jpeg"></div>
-<div class="photo-box"><img src="Memories/16.jpeg"></div>
+Nee en happiness, en peace, en favourite person ❤️
 
 </div>
 
-<button onclick="window.location.href='memories.html'">
-Memories 📸
+<button onclick="openMemories()">
+Open Our Memories 📸
 </button>
-
-<!-- letter popup -->
-
-<div class="letter-popup" id="letterPopup">
-<div class="letter-box">
-
-<h2>My Letter For You 💜</h2>
-
-<p>
-Dear My Princess,<br><br>
-
-Unna first time paatha moment la irundhu
-en life romba beautiful ah maari pochu.<br><br>
-
-Nee sirikkum pothu
-world la ellam correct ah irukura madhiri feel aagudhu.<br><br>
-
-Happy Birthday to the most special person in my life ❤️
-
-</p>
-
-<button onclick="closeLetter()">Close</button>
-
-</div>
-</div>
 
 <!-- VIDEO POPUP -->
 
@@ -313,7 +191,7 @@ Happy Birthday to the most special person in my life ❤️
 
 <div class="video-container">
 
-<span class="close-video" onclick="closeVideo()">✖</span>
+<span class="close-btn" onclick="closeVideo()">✖</span>
 
 <video id="wishVideo" autoplay controls>
 <source src="wish.mp4" type="video/mp4">
@@ -324,21 +202,6 @@ Happy Birthday to the most special person in my life ❤️
 </div>
 
 <script>
-
-/* disable drag */
-document.addEventListener("dragstart",e=>{
-e.preventDefault()
-})
-
-/* disable inspect shortcuts */
-document.addEventListener("keydown",function(e){
-
-if(e.keyCode==123) return false
-if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false
-if(e.ctrlKey && e.keyCode==83) return false
-if(e.ctrlKey && e.keyCode==85) return false
-
-})
 
 /* background music */
 
@@ -352,72 +215,32 @@ music.play().catch(()=>{})
 /* nickname animation */
 
 const names=[
-"KD Queen 👑",
-"Kaaruvachi 💜",
-"Copy Cat ✨",
-"Pap's 🥰",
-"Wifey 💙"
+"En Princess 👑",
+"En Cutie 💜",
+"En Angel ✨",
+"En Baby 🥰",
+"En Everything ❤️"
 ]
 
 let index=0
 
 function showName(){
+
 document.getElementById("nickname").textContent=names[index]
+
 index++
+
 if(index<names.length){
+
 setTimeout(showName,1800)
+
 }
+
 }
 
 showName()
 
-/* letter */
-
-function openLetter(){
-document.getElementById("letterPopup").style.display="flex"
-}
-
-function closeLetter(){
-document.getElementById("letterPopup").style.display="none"
-}
-
-/* confetti */
-
-function celebrate(){
-
-for(let i=0;i<40;i++){
-
-let heart=document.createElement("div")
-
-heart.innerHTML="💜"
-
-heart.style.position="fixed"
-heart.style.left=Math.random()*100+"vw"
-heart.style.top="-20px"
-heart.style.fontSize="20px"
-heart.style.animation="fall 3s linear"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{heart.remove()},3000)
-
-}
-
-}
-
-/* falling animation */
-
-const style=document.createElement("style")
-
-style.innerHTML=`
-@keyframes fall{
-0%{transform:translateY(0)}
-100%{transform:translateY(100vh)}
-}`
-
-document.head.appendChild(style)
-
-/* CLOSE VIDEO */
+/* close video */
 
 function closeVideo(){
 
@@ -428,11 +251,61 @@ video.currentTime=0
 
 document.getElementById("videoPopup").style.display="none"
 
+heartExplosion()
+
 }
 
-document.getElementById("wishVideo").addEventListener("ended",function(){
-document.getElementById("videoPopup").style.display="none"
-})
+/* heart explosion */
+
+function heartExplosion(){
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div")
+
+heart.innerHTML="💖"
+
+heart.style.position="fixed"
+heart.style.left=Math.random()*100+"vw"
+heart.style.top=Math.random()*100+"vh"
+heart.style.fontSize="22px"
+heart.style.animation="float 4s linear"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),4000)
+
+}
+
+}
+
+/* falling stars */
+
+function createStar(){
+
+const star=document.createElement("div")
+
+star.className="star"
+
+star.style.left=Math.random()*100+"vw"
+
+star.style.animationDuration=(Math.random()*3+2)+"s"
+
+document.body.appendChild(star)
+
+setTimeout(()=>star.remove(),5000)
+
+}
+
+setInterval(createStar,700)
+
+/* next page */
+
+function openMemories(){
+
+window.location.href="memories.html"
+
+}
 
 </script>
 
