@@ -26,12 +26,53 @@ animation:gradientMove 12s ease infinite;
 
 user-select:none;
 -webkit-user-select:none;
+
+overflow-x:hidden;
 }
 
 @keyframes gradientMove{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
+}
+
+/* falling stars */
+
+.star{
+position:fixed;
+top:-10px;
+width:2px;
+height:80px;
+background:linear-gradient(white, transparent);
+opacity:0.8;
+transform:rotate(45deg);
+animation:fallStar linear forwards;
+}
+
+@keyframes fallStar{
+0%{
+transform:translateY(-100px) translateX(0) rotate(45deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) translateX(-200px) rotate(45deg);
+opacity:0;
+}
+}
+
+/* floating hearts */
+
+.heart{
+position:fixed;
+font-size:20px;
+animation:float 12s linear infinite;
+opacity:0.7;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
 }
 
 /* top right button */
@@ -66,7 +107,7 @@ margin-top:30px;
 font-size:clamp(20px,6vw,30px);
 }
 
-/* gallery grid */
+/* gallery */
 
 .gallery{
 display:grid;
@@ -76,6 +117,13 @@ padding:20px;
 width:90%;
 max-width:1000px;
 margin:auto;
+
+animation:fadeGallery 1.5s ease;
+}
+
+@keyframes fadeGallery{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 /* image container */
@@ -113,8 +161,6 @@ user-select:none;
 -webkit-user-drag:none;
 -webkit-touch-callout:none;
 }
-
-/* invisible protection layer */
 
 .photo-card::after{
 content:"";
@@ -160,6 +206,35 @@ background:linear-gradient(45deg,#4ea8de,#9d4edd);
 color:white;
 
 box-shadow:0 0 12px rgba(150,100,255,0.6);
+}
+
+/* zoom viewer */
+
+.viewer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.viewer img{
+max-width:90%;
+max-height:90%;
+border-radius:15px;
+}
+
+.close{
+position:absolute;
+top:30px;
+right:40px;
+font-size:35px;
+cursor:pointer;
 }
 
 audio{
@@ -242,31 +317,61 @@ Personal Gallery
 Next ❤️
 </button>
 
+<div class="viewer" id="viewer">
+<span class="close" onclick="closeViewer()">✖</span>
+<img id="viewerImg">
+</div>
+
 <audio id="bgMusic" loop>
 <source src="audio.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
+/* falling stars */
+
+function createStar(){
+const star=document.createElement("div")
+star.className="star"
+star.style.left=Math.random()*100+"vw"
+star.style.animationDuration=(Math.random()*3+2)+"s"
+document.body.appendChild(star)
+setTimeout(()=>star.remove(),5000)
+}
+
+setInterval(createStar,700)
+
+/* floating hearts */
+
+function createHeart(){
+const heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="💜"
+heart.style.left=Math.random()*100+"vw"
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),12000)
+}
+
+setInterval(createHeart,3000)
+
+/* zoom viewer */
+
+const images=document.querySelectorAll(".photo-card img")
+
+images.forEach(img=>{
+img.onclick=()=>{
+document.getElementById("viewer").style.display="flex"
+document.getElementById("viewerImg").src=img.src
+}
+})
+
+function closeViewer(){
+document.getElementById("viewer").style.display="none"
+}
+
 /* disable drag */
 
-document.addEventListener("dragstart",e=>{
-e.preventDefault()
-})
-
-/* disable inspect shortcuts */
-
-document.addEventListener("keydown",function(e){
-
-if(e.keyCode==123) return false
-
-if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false
-
-if(e.ctrlKey && e.keyCode==83) return false
-
-if(e.ctrlKey && e.keyCode==85) return false
-
-})
+document.addEventListener("dragstart",e=>{e.preventDefault()})
 
 /* music control */
 
