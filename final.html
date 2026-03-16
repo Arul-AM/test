@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<link rel="preload" href="love.mp3" as="audio">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Forever 💜</title>
 
@@ -19,142 +17,108 @@ margin:0;
 padding:0;
 }
 
-html,body{
-height:100%;
-overflow:hidden;
-}
-
-/* main background */
-
 body{
+
+height:100vh;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+
 font-family:'Segoe UI',sans-serif;
+
 text-align:center;
 color:white;
 
 background:linear-gradient(135deg,#020024,#090979,#4b0082,#7b2cbf);
 
-transition:opacity 2s ease;
-}
+overflow:hidden;
 
-/* dark overlay fade */
-
-.fade-layer{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-
-background:black;
-
-opacity:0;
-
-transition:opacity 2s ease;
-
-pointer-events:none;
-
-z-index:1;
-}
-
-.fade-layer.show{
-opacity:.85;
-}
-
-/* main section */
-
-.main{
-display:flex;
-flex-direction:column;
-align-items:center;
-z-index:2;
 }
 
 /* title */
 
 h1{
-font-size:clamp(28px,7vw,48px);
+
+font-size:clamp(30px,7vw,48px);
+
 margin-bottom:20px;
 
 text-shadow:0 0 10px #9d4edd;
+
 }
 
-/* text */
+/* typing text */
 
-p{
+#typing{
+
 font-size:clamp(16px,4vw,22px);
+
 max-width:90%;
+
 line-height:1.7;
-margin-bottom:10px;
+
+margin-bottom:25px;
+
 }
 
 /* button */
 
 button{
-padding:14px 32px;
-margin-top:25px;
+
+padding:14px 30px;
+
 font-size:18px;
+
 border:none;
 border-radius:30px;
+
 cursor:pointer;
 
 background:linear-gradient(45deg,#4ea8de,#9d4edd);
+
 color:white;
 
 box-shadow:0 0 12px rgba(150,100,255,0.6);
 
-transition:.2s;
 }
 
-button:hover{
-transform:scale(1.05);
-}
-
-/* popup message */
+/* popup */
 
 .popup{
+
 position:fixed;
+
 top:50%;
 left:50%;
 
-transform:translate(-50%,-50%) scale(.9);
+transform:translate(-50%,-50%);
 
 background:#111;
-padding:28px 30px;
+
+padding:25px 30px;
+
 border-radius:15px;
 
-font-size:17px;
+font-size:18px;
 
 display:none;
-opacity:0;
 
-box-shadow:0 0 25px #9d4edd;
+box-shadow:0 0 20px #9d4edd;
 
-max-width:85%;
-line-height:1.6;
-
-transition:.4s;
-
-z-index:3;
 }
 
-.popup.show{
-display:block;
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-}
-
-/* hearts explosion */
+/* hearts */
 
 .heart{
+
 position:absolute;
-font-size:28px;
-animation:explode 1.6s ease forwards;
-pointer-events:none;
-z-index:2;
+
+font-size:26px;
+
+animation:explode 1.5s ease forwards;
+
 }
 
 @keyframes explode{
@@ -171,43 +135,53 @@ opacity:0;
 
 }
 
-/* final reveal */
+/* stars */
 
-.final-message{
+.star{
 
 position:fixed;
-top:50%;
-left:50%;
 
-transform:translate(-50%,-50%) scale(.5);
+top:-10px;
 
-text-align:center;
+width:2px;
+height:80px;
+
+background:linear-gradient(white,transparent);
+
+transform:rotate(45deg);
+
+animation:fallStar linear forwards;
+
+}
+
+@keyframes fallStar{
+
+0%{transform:translateY(-100px) translateX(0) rotate(45deg)}
+
+100%{transform:translateY(110vh) translateX(-200px) rotate(45deg)}
+
+}
+
+/* fade screen */
+
+.fade{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:black;
 
 opacity:0;
 
-transition:1.5s;
+pointer-events:none;
 
-z-index:4;
-}
+transition:3s;
 
-.final-message.show{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-}
-
-.final-message h2{
-
-font-size:clamp(36px,8vw,70px);
-
-text-shadow:
-0 0 10px #fff,
-0 0 20px #9d4edd,
-0 0 40px #7b2cbf;
-}
-
-.final-message p{
-font-size:clamp(22px,5vw,32px);
-margin-top:10px;
 }
 
 </style>
@@ -216,70 +190,65 @@ margin-top:10px;
 
 <body>
 
-<div class="fade-layer" id="fadeLayer"></div>
-
-<!-- background music -->
-
-<audio id="bgMusic" preload="auto" loop>
+<audio id="bgMusic" loop>
 <source src="love.mp3" type="audio/mpeg">
 </audio>
 
-<!-- main content -->
-
-<div class="main" id="mainContent">
-
 <h1>Thank You 💜</h1>
 
-<p>Maybe this message will disappear…</p>
-<p>but my care for you will never disappear ❤️</p>
-<p>Happy Birthday once again 🎂</p>
+<p id="typing"></p>
 
 <button onclick="foreverClick()">
 Forever ❤️
 </button>
 
-</div>
-
-<!-- popup message -->
-
 <div class="popup" id="popupMessage">
 
-This message will be erased in 3 hours…
+This message will be erased in 3 hours…<br><br>
 
-<br><br>
+But before it disappears I want to say something.<br><br>
 
-Unna naan romba special ah paakuren.
-Nee en life la vandhadhu enakku romba periya happiness.
-
-<br><br>
-
-Maybe this message will disappear…
-but my care for you will never disappear 💜
+You are one of the most beautiful parts of my life 💜
 
 </div>
 
-<!-- final reveal -->
-
-<div class="final-message" id="finalReveal">
-
-<h2>Arul ❤️ My Princess</h2>
-<p>Forever</p>
-
-</div>
+<div class="fade" id="fadeScreen"></div>
 
 <script>
 
-/* start music */
+/* mobile safe music */
 
 const music=document.getElementById("bgMusic")
 
-music.volume=.5
+music.volume=0.5
 
 document.body.addEventListener("click",()=>{
 music.play().catch(()=>{})
 },{once:true})
 
-/* button click */
+/* typing message */
+
+const text="Maybe this message will disappear... but my care for you will never disappear ❤️"
+
+let i=0
+
+function typeText(){
+
+if(i < text.length){
+
+document.getElementById("typing").innerHTML += text.charAt(i)
+
+i++
+
+setTimeout(typeText,50)
+
+}
+
+}
+
+typeText()
+
+/* forever button */
 
 function foreverClick(){
 
@@ -287,27 +256,25 @@ loveExplosion()
 
 const popup=document.getElementById("popupMessage")
 
-popup.classList.add("show")
+popup.style.display="block"
+
+/* fade ending */
 
 setTimeout(()=>{
 
-popup.classList.remove("show")
+document.getElementById("fadeScreen").style.opacity="1"
 
-document.getElementById("mainContent").style.display="none"
-
-document.getElementById("fadeLayer").classList.add("show")
-
-showFinal()
+music.volume=0
 
 },5000)
 
 }
 
-/* heart explosion */
+/* hearts explosion */
 
 function loveExplosion(){
 
-for(let i=0;i<40;i++){
+for(let i=0;i<35;i++){
 
 const heart=document.createElement("div")
 
@@ -318,34 +285,39 @@ heart.className="heart"
 heart.style.left="50%"
 heart.style.top="50%"
 
-heart.style.setProperty("--x",(Math.random()*800-400)+"px")
-heart.style.setProperty("--y",(Math.random()*800-400)+"px")
+heart.style.setProperty("--x",(Math.random()*600-300)+"px")
+heart.style.setProperty("--y",(Math.random()*600-300)+"px")
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),1600)
+setTimeout(()=>heart.remove(),1500)
 
 }
 
 }
 
-/* final reveal */
+/* falling stars */
 
-function showFinal(){
+function createStar(){
 
-document.getElementById("finalReveal").classList.add("show")
+const star=document.createElement("div")
 
-/* fade to black after 8 seconds */
+star.className="star"
 
-setTimeout(()=>{
+star.style.left=Math.random()*100+"vw"
 
-document.body.style.opacity="0"
+star.style.animationDuration=(Math.random()*3+2)+"s"
 
-},8000)
+document.body.appendChild(star)
+
+setTimeout(()=>star.remove(),5000)
 
 }
+
+setInterval(createStar,700)
 
 </script>
 
 </body>
+
 </html>
