@@ -1,12 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>💙 A Surprise For You 💜</title>
 
 <style>
-
-/* ===== PAGE STYLE ===== */
 
 body{
 margin:0;
@@ -23,8 +22,6 @@ overflow:hidden;
 background:linear-gradient(135deg,#020024,#090979,#4b0082,#7b2cbf);
 }
 
-/* container */
-
 .container{
 padding:40px;
 border-radius:20px;
@@ -32,11 +29,8 @@ background:rgba(10,0,40,0.6);
 backdrop-filter:blur(10px);
 
 box-shadow:0 0 40px rgba(120,100,255,0.7);
-
 animation:fadeIn 3s ease;
 }
-
-/* title */
 
 .title{
 font-size:42px;
@@ -48,15 +42,11 @@ text-shadow:
 0 0 40px #9d4edd;
 }
 
-/* subtitle */
-
 .subtitle{
 font-size:18px;
 margin-bottom:30px;
 color:#d6ccff;
 }
-
-/* countdown */
 
 #countdown{
 font-size:55px;
@@ -69,12 +59,28 @@ text-shadow:
 0 0 40px #9d4edd;
 }
 
-/* note */
-
 .note{
 margin-top:20px;
 font-size:15px;
 color:#d6ccff;
+}
+
+/* NEXT BUTTON */
+
+#nextBtn{
+margin-top:30px;
+padding:14px 28px;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#4ea8de,#9d4edd);
+color:white;
+
+box-shadow:0 0 15px rgba(150,100,255,0.7);
+
+display:none;
 }
 
 /* floating hearts */
@@ -100,8 +106,6 @@ opacity:0;
 }
 }
 
-/* fade animation */
-
 @keyframes fadeIn{
 from{
 opacity:0;
@@ -117,12 +121,12 @@ transform:translateY(0);
 
 </head>
 
-
 <body>
 
-   <audio autoplay loop>
+<audio autoplay loop>
 <source src="audio.mp3" type="audio/mpeg">
 </audio>
+
 <!-- Floating hearts -->
 
 <div class="heart" style="left:5%;animation-delay:0s;">💜</div>
@@ -135,9 +139,6 @@ transform:translateY(0);
 <div class="heart" style="left:75%;animation-delay:4s;">💙</div>
 <div class="heart" style="left:85%;animation-delay:1s;">💜</div>
 <div class="heart" style="left:95%;animation-delay:3s;">💙</div>
-
-
-<!-- Main content -->
 
 <div class="container">
 
@@ -154,12 +155,13 @@ transform:translateY(0);
 
 <p class="note">Stay here until the timer ends ✨</p>
 
+<button id="nextBtn" onclick="openSurprise()">
+Open Your Surprise 💜
+</button>
+
 </div>
 
-
 <script>
-
-/* countdown timer */
 
 const targetDate = new Date("March 21, 2026 00:00:00").getTime();
 
@@ -184,13 +186,17 @@ clearInterval(timer);
 
 document.getElementById("countdown").innerHTML="🎉 It's Time!";
 
-setTimeout(function(){
-window.location.href="surprise.html";
-},2000);
+document.getElementById("nextBtn").style.display="inline-block";
 
 }
 
 },1000);
+
+function openSurprise(){
+
+window.location.href="surprise.html";
+
+}
 
 </script>
 
