@@ -63,6 +63,29 @@ text-align:left;
 line-height:1.6;
 }
 
+/* LOVE METER */
+
+.love-meter{
+margin-top:30px;
+}
+
+.meter{
+width:80%;
+max-width:400px;
+height:22px;
+background:#222;
+border-radius:20px;
+margin:20px auto;
+overflow:hidden;
+}
+
+#loveBar{
+height:100%;
+width:0%;
+background:linear-gradient(45deg,#ff4d6d,#ff85a1);
+transition:2s;
+}
+
 /* hearts */
 
 .heart{
@@ -95,8 +118,6 @@ overflow:hidden;
 border-radius:10px;
 }
 
-/* protected images */
-
 .photo-box img{
 width:100%;
 height:200px;
@@ -111,8 +132,6 @@ user-select:none;
 box-shadow:0 0 10px rgba(150,100,255,0.6);
 }
 
-/* invisible overlay */
-
 .photo-box::after{
 content:"";
 position:absolute;
@@ -122,15 +141,11 @@ width:100%;
 height:100%;
 }
 
-/* mobile */
-
 @media(max-width:600px){
 .gallery{
 grid-template-columns:repeat(2,1fr);
 }
 }
-
-/* buttons */
 
 button{
 margin:10px;
@@ -143,8 +158,6 @@ cursor:pointer;
 background:linear-gradient(45deg,#4ea8de,#9d4edd);
 color:white;
 }
-
-/* cake */
 
 .cake{
 font-size:60px;
@@ -237,46 +250,30 @@ color:white;
 <div class="message-box">
 
 <p>Happy Birthday da en azhagana ponnu 💜</p>
-
 <p>Nee en life ku vandha apram dhan ellame romba azhaga maari pochu.</p>
-
 <p>Nee en happiness, en peace, en favourite person 💙</p>
-
 <p>Unna en life la kidaichadhu enakku romba periya luck.</p>
-
 <p>Naan eppovum unna care pannuvaen 💙</p>
+
+</div>
+
+<!-- LOVE METER -->
+
+<div class="love-meter">
+
+<h2>Love Level 💓</h2>
+
+<div class="meter">
+<div id="loveBar"></div>
+</div>
+
+<button onclick="checkLove()">Check Love</button>
 
 </div>
 
 <button onclick="openLetter()">💌 Open My Letter</button>
 
 <div class="cake" onclick="celebrate()">🎂</div>
-
-<!-- gallery -->
-
-<div class="gallery">
-
-<div class="photo-box"><img src="Memories/01.jpeg"></div>
-<div class="photo-box"><img src="Memories/02.jpeg"></div>
-<div class="photo-box"><img src="Memories/03.jpeg"></div>
-<div class="photo-box"><img src="Memories/04.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/05.jpeg"></div>
-<div class="photo-box"><img src="Memories/06.jpeg"></div>
-<div class="photo-box"><img src="Memories/07.jpeg"></div>
-<div class="photo-box"><img src="Memories/08.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/09.jpeg"></div>
-<div class="photo-box"><img src="Memories/10.jpeg"></div>
-<div class="photo-box"><img src="Memories/11.jpeg"></div>
-<div class="photo-box"><img src="Memories/12.jpeg"></div>
-
-<div class="photo-box"><img src="Memories/13.jpeg"></div>
-<div class="photo-box"><img src="Memories/14.jpeg"></div>
-<div class="photo-box"><img src="Memories/15.jpeg"></div>
-<div class="photo-box"><img src="Memories/16.jpeg"></div>
-
-</div>
 
 <button onclick="window.location.href='memories.html'">
 Memories 📸
@@ -325,20 +322,11 @@ Happy Birthday to the most special person in my life ❤️
 
 <script>
 
-/* disable drag */
-document.addEventListener("dragstart",e=>{
-e.preventDefault()
-})
+/* LOVE METER */
 
-/* disable inspect shortcuts */
-document.addEventListener("keydown",function(e){
-
-if(e.keyCode==123) return false
-if(e.ctrlKey && e.shiftKey && e.keyCode==73) return false
-if(e.ctrlKey && e.keyCode==83) return false
-if(e.ctrlKey && e.keyCode==85) return false
-
-})
+function checkLove(){
+document.getElementById("loveBar").style.width="100%"
+}
 
 /* background music */
 
