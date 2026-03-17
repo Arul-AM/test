@@ -13,6 +13,8 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable
 
 *{box-sizing:border-box}
 
+/* smooth page transition */
+
 body{
 margin:0;
 font-family:'Segoe UI',sans-serif;
@@ -27,6 +29,17 @@ animation:gradientMove 12s ease infinite;
 user-select:none;
 -webkit-user-select:none;
 overflow-x:hidden;
+
+opacity:0;
+transition:opacity .6s ease;
+}
+
+body.page-loaded{
+opacity:1;
+}
+
+body.fade-out{
+opacity:0;
 }
 
 @keyframes gradientMove{
@@ -213,7 +226,7 @@ color:white;
 box-shadow:0 0 12px rgba(150,100,255,0.6);
 }
 
-/* viewer */
+/* zoom viewer */
 
 .viewer{
 position:fixed;
@@ -252,7 +265,7 @@ display:none;
 
 <body oncontextmenu="return false">
 
-<button class="personal-btn" onclick="openPersonal()">
+<button class="personal-btn" onclick="goPage('personal.html')">
 Personal Gallery
 </button>
 
@@ -307,24 +320,9 @@ Personal Gallery
 <div class="photo-card"><img src="surprise/03.jpeg"><div class="caption">Memory 03</div></div>
 <div class="photo-card"><img src="surprise/04.jpeg"><div class="caption">Memory 04</div></div>
 
-<div class="photo-card"><img src="surprise/05.jpeg"><div class="caption">Memory 05</div></div>
-<div class="photo-card"><img src="surprise/06.jpeg"><div class="caption">Memory 06</div></div>
-<div class="photo-card"><img src="surprise/07.jpeg"><div class="caption">Memory 07</div></div>
-<div class="photo-card"><img src="surprise/08.jpg"><div class="caption">Memory 08</div></div>
-
-<div class="photo-card"><img src="surprise/09.jpeg"><div class="caption">Memory 09</div></div>
-<div class="photo-card"><img src="surprise/10.jpeg"><div class="caption">Memory 10</div></div>
-<div class="photo-card"><img src="surprise/11.jpeg"><div class="caption">Memory 11</div></div>
-<div class="photo-card"><img src="surprise/12.jpeg"><div class="caption">Memory 12</div></div>
-
-<div class="photo-card"><img src="surprise/13.jpeg"><div class="caption">Memory 13</div></div>
-<div class="photo-card"><img src="surprise/14.jpeg"><div class="caption">Memory 14</div></div>
-<div class="photo-card"><img src="surprise/15.jpeg"><div class="caption">Memory 15</div></div>
-<div class="photo-card"><img src="surprise/16.jpeg"><div class="caption">Memory 16</div></div>
-
 </div>
 
-<button onclick="window.location.href='final.html'">
+<button onclick="goPage('final.html')">
 Next ❤️
 </button>
 
@@ -338,6 +336,24 @@ Next ❤️
 </audio>
 
 <script>
+
+/* page fade in */
+
+window.addEventListener("load",()=>{
+document.body.classList.add("page-loaded")
+})
+
+/* smooth navigation */
+
+function goPage(page){
+
+document.body.classList.add("fade-out")
+
+setTimeout(()=>{
+window.location.href=page
+},600)
+
+}
 
 /* slideshow */
 
@@ -382,25 +398,6 @@ setTimeout(()=>heart.remove(),12000)
 
 setInterval(createHeart,3000)
 
-/* heart cursor trail */
-
-document.addEventListener("mousemove",function(e){
-
-const heart=document.createElement("div")
-heart.innerHTML="💜"
-
-heart.style.position="fixed"
-heart.style.left=e.clientX+"px"
-heart.style.top=e.clientY+"px"
-heart.style.fontSize="14px"
-heart.style.pointerEvents="none"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>heart.remove(),700)
-
-})
-
 /* zoom viewer */
 
 const images=document.querySelectorAll(".photo-card img")
@@ -416,32 +413,20 @@ function closeViewer(){
 document.getElementById("viewer").style.display="none"
 }
 
-/* music transition */
+/* music control */
 
 const music=document.getElementById("bgMusic")
 const video=document.getElementById("memoryVideo")
 
 music.volume=0.5
 
-if(localStorage.getItem("musicTime")){
-music.currentTime=localStorage.getItem("musicTime")
-}
-
 document.body.addEventListener("click",()=>{
 music.play().catch(()=>{})
 },{once:true})
 
-setInterval(()=>{
-localStorage.setItem("musicTime",music.currentTime)
-},1000)
-
 video.addEventListener("play",()=>music.pause())
 video.addEventListener("pause",()=>music.play().catch(()=>{}))
 video.addEventListener("ended",()=>music.play().catch(()=>{}))
-
-function openPersonal(){
-window.location.href="personal.html"
-}
 
 </script>
 
