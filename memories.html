@@ -26,7 +26,6 @@ animation:gradientMove 12s ease infinite;
 
 user-select:none;
 -webkit-user-select:none;
-
 overflow-x:hidden;
 }
 
@@ -34,6 +33,21 @@ overflow-x:hidden;
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
+}
+
+/* slideshow */
+
+.slideshow{
+width:90%;
+max-width:600px;
+margin:30px auto;
+}
+
+.slideshow img{
+width:100%;
+border-radius:15px;
+box-shadow:0 0 20px #9d4edd;
+transition:1s;
 }
 
 /* falling stars */
@@ -75,7 +89,7 @@ opacity:0.7;
 100%{transform:translateY(-10vh);opacity:0;}
 }
 
-/* top right button */
+/* personal button */
 
 .personal-btn{
 position:fixed;
@@ -117,7 +131,6 @@ padding:20px;
 width:90%;
 max-width:1000px;
 margin:auto;
-
 animation:fadeGallery 1.5s ease;
 }
 
@@ -126,17 +139,14 @@ from{opacity:0; transform:translateY(30px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-/* image container */
+/* photo cards */
 
 .photo-card{
 position:relative;
-
 background:white;
 padding:8px;
 border-radius:10px;
-
 box-shadow:0 6px 15px rgba(0,0,0,0.35);
-
 transform:rotate(-3deg);
 transition:.25s;
 }
@@ -149,13 +159,10 @@ transform:rotate(3deg);
 transform:scale(1.05) rotate(0deg);
 }
 
-/* protected images */
-
 .photo-card img{
 width:100%;
 border-radius:5px;
 display:block;
-
 pointer-events:none;
 user-select:none;
 -webkit-user-drag:none;
@@ -170,8 +177,6 @@ left:0;
 width:100%;
 height:100%;
 }
-
-/* caption */
 
 .caption{
 color:black;
@@ -208,7 +213,7 @@ color:white;
 box-shadow:0 0 12px rgba(150,100,255,0.6);
 }
 
-/* zoom viewer */
+/* viewer */
 
 .viewer{
 position:fixed;
@@ -252,6 +257,12 @@ Personal Gallery
 </button>
 
 <h1>Our Memories 💜</h1>
+
+<!-- slideshow -->
+
+<div class="slideshow">
+<img id="slideImg" src="Memories/1.jpeg">
+</div>
 
 <div class="gallery">
 
@@ -301,16 +312,6 @@ Personal Gallery
 <div class="photo-card"><img src="surprise/07.jpeg"><div class="caption">Memory 07</div></div>
 <div class="photo-card"><img src="surprise/08.jpg"><div class="caption">Memory 08</div></div>
 
-<div class="photo-card"><img src="surprise/09.jpeg"><div class="caption">Memory 09</div></div>
-<div class="photo-card"><img src="surprise/10.jpeg"><div class="caption">Memory 10</div></div>
-<div class="photo-card"><img src="surprise/11.jpeg"><div class="caption">Memory 11</div></div>
-<div class="photo-card"><img src="surprise/12.jpeg"><div class="caption">Memory 12</div></div>
-
-<div class="photo-card"><img src="surprise/13.jpeg"><div class="caption">Memory 13</div></div>
-<div class="photo-card"><img src="surprise/14.jpeg"><div class="caption">Memory 14</div></div>
-<div class="photo-card"><img src="surprise/15.jpeg"><div class="caption">Memory 15</div></div>
-<div class="photo-card"><img src="surprise/16.jpeg"><div class="caption">Memory 16</div></div>
-
 </div>
 
 <button onclick="window.location.href='final.html'">
@@ -327,6 +328,23 @@ Next ❤️
 </audio>
 
 <script>
+
+/* slideshow */
+
+const slides=[
+"Memories/1.jpeg",
+"Memories/2.jpeg",
+"Memories/3.jpeg",
+"Memories/4.jpeg"
+]
+
+let slideIndex=0
+
+setInterval(()=>{
+slideIndex++
+if(slideIndex>=slides.length) slideIndex=0
+document.getElementById("slideImg").src=slides[slideIndex]
+},3000)
 
 /* falling stars */
 
@@ -354,6 +372,25 @@ setTimeout(()=>heart.remove(),12000)
 
 setInterval(createHeart,3000)
 
+/* heart cursor trail */
+
+document.addEventListener("mousemove",function(e){
+
+const heart=document.createElement("div")
+heart.innerHTML="💜"
+
+heart.style.position="fixed"
+heart.style.left=e.clientX+"px"
+heart.style.top=e.clientY+"px"
+heart.style.fontSize="14px"
+heart.style.pointerEvents="none"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),700)
+
+})
+
 /* zoom viewer */
 
 const images=document.querySelectorAll(".photo-card img")
@@ -369,20 +406,24 @@ function closeViewer(){
 document.getElementById("viewer").style.display="none"
 }
 
-/* disable drag */
-
-document.addEventListener("dragstart",e=>{e.preventDefault()})
-
-/* music control */
+/* music transition */
 
 const music=document.getElementById("bgMusic")
 const video=document.getElementById("memoryVideo")
 
 music.volume=0.5
 
+if(localStorage.getItem("musicTime")){
+music.currentTime=localStorage.getItem("musicTime")
+}
+
 document.body.addEventListener("click",()=>{
 music.play().catch(()=>{})
 },{once:true})
+
+setInterval(()=>{
+localStorage.setItem("musicTime",music.currentTime)
+},1000)
 
 video.addEventListener("play",()=>music.pause())
 video.addEventListener("pause",()=>music.play().catch(()=>{}))
